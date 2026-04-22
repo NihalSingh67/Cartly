@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cartly (Aura) - Premium E-Commerce Marketplace
 
-## Getting Started
+Cartly is a modern, high-end e-commerce marketplace platform built with Next.js. It features a stunning glassmorphic UI, smooth framer-motion animations, and a comprehensive full-stack architecture for buyers and sellers.
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Framework**: Next.js 16 (App Router)
+- **Frontend/UI**: React 19, Tailwind CSS v4, Framer Motion, shadcn/ui
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js (v4)
+- **File Uploads**: UploadThing
+- **Payments**: Stripe (Integration Ready)
+
+## 🌟 Key Features
+
+- **Multi-Role System**: Users can act as regular buyers or upgrade to a `SELLER` role to list their own products.
+- **Premium Aesthetics**: Features a fully custom dark mode, glassmorphism (`backdrop-blur`), and `Outfit` / `Inter` typography for a luxurious feel.
+- **Dynamic Animations**: Implements a Parallax Hero section and animated product cards using Framer Motion.
+- **Cart & Checkout Flow**: Context-based shopping cart management.
+- **Order Management & Tracking**: Database schema supports order tracking, statuses (PENDING, PAID, SHIPPED, DELIVERED), and integrated product reviews.
+
+## 🗄️ Database Architecture
+
+The application relies on a robust relational structure managed by Prisma:
+
+- `User` / `Account` / `Session`: Authentication and authorization. Roles include `USER` and `SELLER`.
+- `Product`: Owned by a seller, containing title, price, images array, and category.
+- `Order` & `OrderItem`: Tracks purchases, buyer relations, and the total cost.
+- `Tracking`: Enables geographic or status tracking of shipped orders.
+- `Review`: Allows buyers to leave 1-5 star ratings and comments on products.
+
+## 📂 Project Structure
+
+```
+src/
+├── app/
+│   ├── api/          # Next.js API Routes (products, upload, checkout, etc.)
+│   ├── cart/         # Shopping cart page
+│   ├── checkout/     # Checkout flow
+│   ├── explore/      # Product exploration / filtering
+│   ├── login/        # User authentication
+│   ├── product/      # Individual product details (`[id]`)
+│   ├── profile/      # User profile management
+│   ├── seller/       # Seller dashboard (adding products, etc.)
+│   ├── sellers/      # Public seller profiles
+│   ├── layout.tsx    # Root layout with global providers and custom fonts
+│   └── page.tsx      # Landing page with Parallax Hero and Trending sections
+├── components/       # Reusable UI components (Navbar, ProductCard, Reviews)
+├── context/          # React Context (e.g., CartProvider)
+└── lib/              # Utility functions and Prisma client setup
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Environment Variables:**
+   Ensure your `.env` file is configured with the following:
+   - `DATABASE_URL` (PostgreSQL connection string)
+   - `NEXTAUTH_SECRET` & `NEXTAUTH_URL`
+   - UploadThing keys
+   - Stripe keys
 
-## Learn More
+3. **Database Setup:**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   # Optional: Seed the database
+   npm run prisma:seed
+   ```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run Development Server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
