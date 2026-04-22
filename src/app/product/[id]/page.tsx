@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import { AddToCartButton } from "./AddToCartButton";
 import { ProductReviews } from "@/components/ProductReviews";
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const id = decodeURIComponent(resolvedParams.id);
   const product = await prisma.product.findUnique({
     where: { id },
     include: {
@@ -21,7 +22,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
     },
   });
 
-  if (!product) return notFound();
+  if (!product) return <div className="pt-32 text-center text-white text-2xl">Product Not Found with ID: {id}</div>;
 
   return (
     <main className="min-h-screen pt-32 pb-16 px-6 md:px-12 bg-background">

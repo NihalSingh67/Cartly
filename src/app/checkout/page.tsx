@@ -16,6 +16,9 @@ export default function CheckoutPage() {
     name: "",
     address: "",
     phone: "",
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -117,12 +120,61 @@ export default function CheckoutPage() {
                 className="w-full px-4 py-3 rounded-xl bg-secondary border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors"
               />
             </div>
+
+            {/* Payment Information */}
+            <div className="pt-6 border-t border-white/10">
+              <h2 className="text-xl font-bold text-white mb-6">Payment Information</h2>
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-zinc-300 mb-2">Card Number</label>
+                  <input
+                    type="text"
+                    name="cardNumber"
+                    value={form.cardNumber}
+                    onChange={handleChange}
+                    required
+                    maxLength={19}
+                    placeholder="0000 0000 0000 0000"
+                    className="w-full px-4 py-3 rounded-xl bg-secondary border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-300 mb-2">Expiry Date</label>
+                    <input
+                      type="text"
+                      name="expiryDate"
+                      value={form.expiryDate}
+                      onChange={handleChange}
+                      required
+                      placeholder="MM/YY"
+                      maxLength={5}
+                      className="w-full px-4 py-3 rounded-xl bg-secondary border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-300 mb-2">CVV</label>
+                    <input
+                      type="password"
+                      name="cvv"
+                      value={form.cvv}
+                      onChange={handleChange}
+                      required
+                      maxLength={4}
+                      placeholder="123"
+                      className="w-full px-4 py-3 rounded-xl bg-secondary border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 rounded-xl bg-white text-black font-bold text-lg hover:bg-zinc-200 transition-colors disabled:opacity-50 mt-4"
+              className="w-full py-4 rounded-xl bg-white text-black font-bold text-lg hover:bg-zinc-200 transition-colors disabled:opacity-50 mt-8"
             >
-              {loading ? "Processing..." : "Place Order"}
+              {loading ? "Processing..." : "Pay Securely & Place Order"}
             </button>
           </form>
         </div>
